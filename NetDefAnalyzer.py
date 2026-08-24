@@ -8,8 +8,10 @@ select_query='SELECT flags FROM TCP WHERE src_ip=? AND port=? ORDER BY id DESC L
 SYNselect_query='SELECT flags FROM TCP WHERE src_ip=? AND NOT port=? ORDER BY id DESC LIMIT 10'
 
 def Analyzer(pack,cursor,db,ips,regscan):
-    if (pack[IP].dst==ips[0]) or (pack[IP].dst==ips[1]) or (pack[IP].dst==ips[2]):
-        #check if destination IP is in the list.
+    #check if destination IP is in the list.
+    if (pack[IP].dst==ips[0]) or (pack[IP].dst==ips[1]):
+        
+
         if TCP in pack:
             
             #Record packet metadata in database
@@ -54,6 +56,7 @@ def Analyzer(pack,cursor,db,ips,regscan):
                        result=[""] #no packets recorded.
 
                    if result[0]=="A":
+                       #if last packet exchanged between those 2 IP addresses was a TCP ACK
                        pass
                    else:
                        print("ALERT! "+pack[IP].src+"sent unexpected FIN packet to port "+str(pack[TCP].dport))
@@ -71,10 +74,10 @@ def Analyzer(pack,cursor,db,ips,regscan):
                         result=cursor.fetchall()[0]
                     except:
                         result=[""]
+
                     if (result[0]=="A") or (result[0]=="SA"):
+                        #pass if the last exchange between the 2 IPs was an ACK or SYNACK
                         pass
-                        #print("ACK pass "+result[0])
-                        #print(pack)
                     else:
                         print("ALERT! "+pack[IP].src+" sent unexpected ACK packet to port "+str(pack[TCP].dport))
 

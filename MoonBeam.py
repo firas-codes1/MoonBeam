@@ -5,14 +5,14 @@ from NetDefAnalyzer import Analyzer
 from NetDefDBClean import CleanDB
 import threading
 
-#Get IP address of device
+
+#Get IP address of gateway
 IpList=ObtainIP()
 if IpList==0:
     pass #exit
 
-LocalIP=IpList[0]
-InnIP=IpList[1]
-ExtIP=IpList[2]
+InnIP=IpList[0]
+ExtIP=IpList[1]
 
 #prepare port list
 regscan=[]
@@ -29,17 +29,6 @@ cursor = db.cursor()
 cursor.execute('CREATE TABLE IF NOT EXISTS TCP(id INTEGER PRIMARY KEY,src_ip TEXT,dst_ip TEXT, port INTEGER, flags TEXT, pack_time TIMESTAMP) ')
 db.commit()
 print("Database ready")
-
-
-def stage1_handler(pack,cursor,db,IpList,regscan):
-    try:
-        Analyzer(pack,cursor,db,IpList,regscan)
-    except:
-        print("Error in processing sniffed packet")
-        print(pack)
-        x=input("input anything to continue")
-
-
 
 
 print("Started")
