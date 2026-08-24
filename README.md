@@ -1,7 +1,7 @@
 # MoonBeam
 MoonBeam is a lightweight intrusion detection tool designed to detect Nmap port scanning patterns. In particular: SYN, XMAS (-sX), Null (-sN), FIN(-sF), and ACK(-sA). 
 
-<video src="./MoonBeamDemo.mp4" controls width="700"></video>
+![Demo Video](./MoonBeamDemo.mp4)
 
 ## Detection method:
 Utilizing an SQLite database, MoonBeam sniffs network packets, records metadata, and monitors incoming TCP packets based on destination IP, and then examines the flags for malicious patterns.  A malicious pattern is an unexpected one. For example, if a FIN is sent from IP1 to IP2, and there was no previous exchange between them, MoonBeam issues a warning, as FIN should not be sent unless there is already an established connection between IP1 and IP2.
