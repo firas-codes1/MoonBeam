@@ -12,6 +12,7 @@ If it's deployed on external network (public-facing): activity maps to $${ \colo
 Else, if it's deployed on internal network then activity maps to $${ \color{red} Discovery  \space (TA0007) \space – \space T1046 \space Network \space Service \space Discovery.}$$     
 
 ## Room for improvement and customization:
+-Improved ACK scan detection.
 -Use of whitelists instead of blacklists for both IPs and ports.  
 -More advanced behavioral analysis.  
 -Enhanced alerting and logging.  
@@ -22,3 +23,4 @@ Else, if it's deployed on internal network then activity maps to $${ \color{red}
 -Detection is based on TCP flag behavior and may generate false positives in environments with high network traffic.  
 -Does not perform payload inspection or application-layer analysis.  
 -Limited to TCP-based detection; does not currently detect UDP or ICMP scanning techniques.  
+-ACK scan packets can be classified as false negatives. 
